@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  tasks-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.tasks
+    ports:
+      - "5001:5001"
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile.web_app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - tasks-service

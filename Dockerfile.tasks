@@ -1,0 +1,15 @@
+FROM python:3.11 AS builder
+
+WORKDIR /FastApiProjectTasks
+COPY poetry.lock pyproject.toml ./
+RUN python -m pip install --no-cache-dir poetry==1.8.2 \
+    && poetry config virtualenvs.in-project true \
+    && poetry install --only main --no-interaction --no-ansi
+
+FROM python:3.11-slim
+
+WORKDIR /FastApiProjectTasks
+COPY --from=builder /FastApiProjectTasks ./
+COPY task_service.py ./
+
+CMD ["./.venv/bin/uvicorn", "web_app", "--host", "0.0.0.0", "--port", "5001"]

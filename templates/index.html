@@ -6,6 +6,12 @@
     <title>To-Do List</title>
 </head>
 <body>
-    <h1>Welcome to To-Do List</h1>
+    <h1>Welcome to To-Do List App</h1>
+    <h2>Tasks:</h2>
+    <ul>
+        {% for task in tasks %}
+            <li><h3>{{ task }}</h3></li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
