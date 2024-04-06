@@ -1,17 +1,17 @@
 FROM python:3.11 AS builder
 
-WORKDIR /app
+WORKDIR /FastApiProject
 COPY poetry.lock pyproject.toml ./
 RUN python -m pip install --no-cache-dir poetry==1.8.2 \
     && poetry config virtualenvs.in-project true \
-    && poetry install --without dev,test --no-interaction --no-ansi
+    && poetry install --only main --no-interaction --no-ansi
 
 FROM python:3.11-slim
 
-WORKDIR /app
-COPY --from=builder /app /app
+WORKDIR /FastApiProject
+COPY --from=builder /FastApiProject ./
 COPY web_app.py ./
 COPY static ./
 COPY templates ./
 
-CMD ["/app/.venv/bin/uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["./.venv/bin/uvicorn", "web_app", "--host", "0.0.0.0", "--port", "5000"]
