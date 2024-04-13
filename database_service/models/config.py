@@ -1,0 +1,2 @@
+UsernameDB = "user"
+PasswordDB = "password"
