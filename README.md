@@ -1,2 +1,2 @@
 # ToDoList
-Making ToDo list on DDD architecture
+Making ToDo list on MSA architecture
